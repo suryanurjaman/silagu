@@ -82,11 +82,11 @@ $data = mysqli_fetch_array($sql);
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="cards.html">
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="?page=jadwal">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
               </svg>
-              <span class="ml-4">Cards</span>
+              <span class="ml-4">Jadwal Mengajar</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
@@ -122,12 +122,12 @@ $data = mysqli_fetch_array($sql);
                   </a>
                 </li>
                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/forgot-password.html">
+                  <a class="w-full" href="?page=master&act=semester">
                     Semester
                   </a>
                 </li>
                 <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/404.html">Tahun Pelajaran</a>
+                  <a class="w-full" href="?page=master&act=ta">Tahun Pelajaran</a>
                 </li>
               </ul>
             </template>
@@ -566,6 +566,12 @@ $data = mysqli_fetch_array($sql);
               include 'modul/master/kelas/data_kelas.php';
             } elseif ($act == 'delkelas') {
               include 'modul/master/kelas/del.php';
+            } elseif ($act == 'editkelas'){
+              include 'modul/master/kelas/edit.php';
+            } elseif ($act == 'addkelas'){
+              include 'modul/master/kelas/add.php';
+            } elseif ($act == 'proseskelas'){
+              include 'modul/master/kelas/proses.php';
               // semster
             } elseif ($act == 'semester') {
               include 'modul/master/semester/data.php';
@@ -573,12 +579,24 @@ $data = mysqli_fetch_array($sql);
               include 'modul/master/semester/del.php';
             } elseif ($act == 'set_semester') {
               include 'modul/master/semester/set.php';
+            } elseif ($act == 'addsemester') {
+              include 'modul/master/semester/add.php';
+            } elseif ($act == 'editsemester') {
+              include 'modul/master/semester/edit.php';
+            } elseif ($act == 'prosessemester') {
+              include 'modul/master/semester/proses.php';
             }
             // tahun ajaran
             elseif ($act == 'ta') {
               include 'modul/master/ta/data.php';
             } elseif ($act == 'delta') {
               include 'modul/master/ta/del.php';
+            } elseif ($act == 'addta') {
+              include 'modul/master/ta/add.php';
+            } elseif ($act == 'editta') {
+              include 'modul/master/ta/edit.php';
+            } elseif ($act == 'prosesta') {
+              include 'modul/master/ta/proses.php';
             } elseif ($act == 'set_ta') {
               include 'modul/master/ta/set.php';
               // mapel
@@ -586,6 +604,12 @@ $data = mysqli_fetch_array($sql);
               include 'modul/master/mapel/data.php';
             } elseif ($act == 'delmapel') {
               include 'modul/master/mapel/del.php';
+            } elseif ($act == 'addmapel') {
+              include 'modul/master/mapel/add.php';
+            } elseif ($act == 'editmapel') {
+              include 'modul/master/mapel/edit.php';
+            } elseif ($act == 'prosesmapel') {
+              include 'modul/master/mapel/proses.php';
             }
           } elseif ($page == 'walas') {
             if ($act == '') {
