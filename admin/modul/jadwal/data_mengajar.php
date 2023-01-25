@@ -1,12 +1,12 @@
 <div class="container px-6 mx-auto grid">
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Kelas
+        Jadwal Mengajar
     </h2>
 
     <!-- New Table -->
     <div class="flex justify-between flex-1">
         <div>
-            <a href="?page=master&act=addkelas">
+            <a href="?page=jadwal&act=add">
                 <button class="px-4 justify-start py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Tambah <span class="ml-2" aria-hidden="true">+</span>
                 </button>
@@ -27,8 +27,11 @@
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">No</th>
-                        <th class="px-4 py-3">Kode Kelas</th>
-                        <th class="px-4 py-3">Nama Kelas</th>
+                        <th class="px-4 py-3">Nama Guru</th>
+                        <th class="px-4 py-3">Mata Pelajaran</th>
+                        <th class="px-4 py-3">Kelas</th>
+                        <th class="px-4 py-3">TP/Semester</th>
+                        <th class="px-4 py-3">Waktu</th>
                         <th class="px-4 py-3">Action</th>
                     </tr>
                 </thead>
@@ -41,11 +44,17 @@
                     $previous = $halaman - 1;
                     $next = $halaman + 1;
 
-                    $kelas = mysqli_query($con, "SELECT * FROM tb_mkelas");
-                    $jumlah_data = mysqli_num_rows($kelas);
+                    $jadwal = mysqli_query($con, "SELECT * FROM tb_mengajar");
+                    $jumlah_data = mysqli_num_rows($jadwal);
                     $total_halaman = ceil($jumlah_data / $batas);
 
-                    $data = mysqli_query($con, "SELECT * FROM tb_mkelas limit $halaman_awal, $batas");
+                    $data = mysqli_query($con, "SELECT * FROM tb_mengajar 
+                    INNER JOIN tb_guru ON tb_mengajar.id_guru=tb_guru.id_guru
+                    INNER JOIN tb_master_mapel ON tb_mengajar.id_mapel=tb_master_mapel.id_mapel
+                    INNER JOIN tb_mkelas ON tb_mengajar.id_mkelas=tb_mkelas.id_mkelas
+
+                    INNER JOIN tb_semester ON tb_mengajar.id_semester=tb_semester.id_semester
+                    INNER JOIN tb_thajaran ON tb_mengajar.id_thajaran=tb_thajaran.id_thajaran");
                     $nomor = $halaman_awal + 1;
                     $nomor_akhir = $halaman_awal + $batas;
                     if ($nomor_akhir > $jumlah_data) {
@@ -55,7 +64,7 @@
                     $offset = ($halaman - 1) * $batas;
                     $no = $offset + 1;
 
-                    foreach ($data as $k) { ?>
+                    foreach ($data as $d) { ?>
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3">
                                 <div class="flex items-center text-sm">
@@ -65,11 +74,23 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                <?= $k['kd_kelas']; ?>
+                                <?=$d['nama_guru'] ?>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                <?= $k['nama_kelas']; ?>
+                                <?=$d['mapel'] ?>
                             </td>
+                            <td class="px-4 py-3 text-sm">
+                                <?=$d['nama_kelas'] ?>
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                <?=$d['tahun_ajaran'] ?>/<?=$d['semester'] ?>
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                <?=$d['jam_mengajar'] ?>
+                            </td>
+
+
+
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
                                     <a href="?page=master&act=editkelas&id=<?=$k['id_mkelas'] ?>">
@@ -80,7 +101,7 @@
                                         </button>
                                     </a>
 
-                                    <a onclick="return confirm('Yakin Hapus Data ??')" href="?page=master&act=delkelas&id=<?= $k['id_mkelas'] ?>">
+                                    <a onclick="return confirm('Yakin Hapus Data ??')" href="?page=jadwal&act=cancel&id=<?=$d['id_mengajar'];?>">
                                         <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
