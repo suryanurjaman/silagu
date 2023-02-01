@@ -9,7 +9,7 @@ include './config/koneksi.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Admin</title>
+    <title>Login - Guru</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/tailwind.output.css" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -27,7 +27,7 @@ include './config/koneksi.php';
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                     <form method="post" action="" class="w-full">
                         <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                            Login
+                            Login Guru
                         </h1>
                         <label class="block text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Username</span>
