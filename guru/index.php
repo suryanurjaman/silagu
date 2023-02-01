@@ -6,7 +6,7 @@ include '../config/koneksi.php';
 if (!isset($_SESSION['guru'])) {
     ?> <script>
         alert('Maaf ! Anda Belum Login !!');
-        window.location='../user.php';
+        window.location='../index.php';
      </script>
     <?php
     }
@@ -18,7 +18,7 @@ if (!isset($_SESSION['guru'])) {
     $sql = mysqli_query($con,"SELECT * FROM tb_guru
      WHERE id_guru = '$id_login'") or die(mysqli_error($con));
     $data = mysqli_fetch_array($sql);
-    
+
     // tampilkan data mengajar
     // $mengajar = mysqli_query($con,"SELECT * FROM tb_mengajar 
     
@@ -36,17 +36,12 @@ if (!isset($_SESSION['guru'])) {
 // jumlah siswa
 // $jumlahSiswa = mysqli_num_rows(mysqli_query($con,"SELECT * FROM tb_siswa WHERE status=1 "));
 // jumlah guru
-$jumlahKelas = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tb_mengajar"));
+// $jumlahKelas = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tb_mengajar"));
 // jumlah guru aktif
-$jumlahKelasHariIni = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tb_mengajar WHERE status='Y' "));
+// $jumlahKelasHariIni = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tb_mengajar WHERE status='Y' "));
 // jumlah guru tidak aktif
-$jumlahGuruTidakAktif = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tb_guru WHERE status='N' "));
+// $jumlahGuruTidakAktif = mysqli_num_rows(mysqli_query($con, "SELECT * FROM tb_guru WHERE status='N' "));
 
-$id_login = @$_SESSION['admin'];
-
-$sql = mysqli_query($con, "SELECT * FROM tb_admin
- WHERE id_admin = '$id_login'") or die(mysqli_error($con));
-$data = mysqli_fetch_array($sql);
 ?>
 
 
@@ -78,7 +73,7 @@ $data = mysqli_fetch_array($sql);
         </a>
         <ul class="mt-6">
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="dashboard.php">
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="index.php">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
               </svg>
@@ -88,72 +83,44 @@ $data = mysqli_fetch_array($sql);
         </ul>
         <ul>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="?page=guru">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-              </svg>
-              <span class="ml-4">Data Guru</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="cards.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-              </svg>
-              <span class="ml-4">Cards</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="charts.html">
-              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-              </svg>
-              <span class="ml-4">Charts</span>
-            </a>
-          </li>
-          <li class="relative px-6 py-3">
-            <span class="absolute inset-y-0 left-0 w-1 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
-            <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" @click="togglePagesMenu" aria-haspopup="true">
-              <span class="inline-flex items-center">
-                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="?page=absen">
+            <svg
+                  class="w-5 h-5"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  ></path>
                 </svg>
-                <span class="ml-4">Data umum</span>
-              </span>
-              <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </button>
-            <template x-if="isPagesMenuOpen">
-              <ul x-transition:enter="transition-all ease-in-out duration-300" x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl" x-transition:leave="transition-all ease-in-out duration-300" x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900" aria-label="submenu">
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="?page=master&act=kelas">Kelas</a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="?page=master&act=mapel">
-                    Mata Pelajaran
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/forgot-password.html">
-                    Semester
-                  </a>
-                </li>
-                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                  <a class="w-full" href="pages/404.html">Tahun Pelajaran</a>
-                </li>
-              </ul>
-            </template>
+              <span class="ml-4">Absensi</span>
+            </a>
+          </li>
+          <li class="relative px-6 py-3">
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="?page=rekap">
+            <svg
+                  class="w-5 h-5"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  ></path>
+                </svg>
+              <span class="ml-4">Rekap Absensi</span>
+            </a>
           </li>
         </ul>
-        <div class="px-6 my-6">
-          <button class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-            Create account
-            <span class="ml-2" aria-hidden="true">+</span>
-          </button>
-        </div>
-      </div>
     </aside>
     <!-- Mobile sidebar -->
     <!-- Backdrop -->
@@ -453,12 +420,16 @@ $data = mysqli_fetch_array($sql);
                 <!-- Modal description -->
                 <label class="block text-sm">
                   <span class="text-gray-700 dark:text-gray-400">Nama Lengkap</span>
-                  <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="nama" placeholder="Jane Doe" value="<?= $data['nama_lengkap'] ?>" />
-                  <input type="hidden" name="id" value="<?= $data['id_admin'] ?>">
+                  <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="nama" placeholder="Jane Doe" value="<?= $data['nama_guru'] ?>" />
+                  <input type="hidden" name="id" value="<?= $data['id_guru'] ?>">
                 </label>
                 <label class="block text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">Username</span>
-                  <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="text" name="username" class="form-control" value="<?= $data['username'] ?>" />
+                  <span class="text-gray-700 dark:text-gray-400">NIP</span>
+                  <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="text" name="nip" class="form-control" value="<?= $data['nip'] ?>" readonly />
+                </label>
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">NIK</span>
+                  <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="text" name="nik" class="form-control" value="<?= $data['nik'] ?>" />
                 </label>
                 <label class="block text-sm">
                   <span class="text-gray-700 dark:text-gray-400">Foto Profile</span>
@@ -486,15 +457,15 @@ $data = mysqli_fetch_array($sql);
               $gambar = @$_FILES['foto']['name'];
               if (!empty($gambar)) {
                 move_uploaded_file($_FILES['foto']['tmp_name'], "../assets/img/user/$gambar");
-                $ganti = mysqli_query($con, "UPDATE tb_admin SET foto='$gambar' WHERE id_admin='$_POST[id]' ");
+                $ganti = mysqli_query($con, "UPDATE tb_guru SET foto='$gambar' WHERE id_guru='$_POST[id]' ");
               }
 
-              $sqlEdit = mysqli_query($con, "UPDATE tb_admin SET nama_lengkap='$_POST[nama]',username='$_POST[username]' WHERE id_admin='$_POST[id]' ") or die(mysqli_error($konek));
+              $sqlEdit = mysqli_query($con, "UPDATE tb_guru SET nama_guru='$_POST[nama]',nip='$_POST[nip]',nik='$_POST[nik]' WHERE id_guru='$_POST[id]' ") or die(mysqli_error($konek));
 
               if ($sqlEdit) {
                 echo "<script>
                         alert('Sukses ! Data berhasil diperbarui');
-                        window.location='dashboard.php';
+                        window.location='index.php';
                         </script>";
               }
             }
@@ -547,15 +518,15 @@ $data = mysqli_fetch_array($sql);
               $newPass = md5($_POST['pass1']);
 
               if ($passLama == $pass) {
-                $set = mysqli_query($con, "UPDATE tb_admin SET password='$newPass' WHERE id_admin='$data[id_admin]' ");
+                $set = mysqli_query($con, "UPDATE tb_guru SET password='$newPass' WHERE id_guru='$data[id_guru]' ");
                 echo "<script type='text/javascript'>
 				alert('Password Telah berubah')
-				window.location.replace('dashboard.php'); 
+				window.location.replace('index.php'); 
 				</script>";
               } else {
                 echo "<script type='text/javascript'>
 				alert('Password Lama Tidak cocok')
-				window.location.replace('dashboard.php'); 
+				window.location.replace('index.php'); 
 				</script>";
               }
             }
@@ -577,12 +548,8 @@ $data = mysqli_fetch_array($sql);
 				if ($page=='absen') {
 					if ($act=='') {
 						include 'modul/absen/absen_kelas.php';
-					}elseif ($act=='surat_view') {
-						include 'modul/absen/view_surat_izin.php';
-					}elseif ($act=='konfirmasi') {
-						include 'modul/absen/konfirmasi_izin.php';
-					}elseif ($act=='update') {
-						include 'modul/absen/absen_kelas_update.php';
+					}elseif ($act=='add') {
+						include 'modul/absen/tambah_absen.php';
 					}					
 				}elseif ($page=='rekap') {
 					if ($act=='') {

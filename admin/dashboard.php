@@ -90,12 +90,12 @@ $data = mysqli_fetch_array($sql);
             </a>
           </li>
           <li class="relative px-6 py-3">
-            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="charts.html">
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="?page=rekap">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
                 <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
               </svg>
-              <span class="ml-4">Charts</span>
+              <span class="ml-4">Rekap Absen</span>
             </a>
           </li>
           <li class="relative px-6 py-3">
@@ -133,12 +133,6 @@ $data = mysqli_fetch_array($sql);
             </template>
           </li>
         </ul>
-        <div class="px-6 my-6">
-          <button class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-            Create account
-            <span class="ml-2" aria-hidden="true">+</span>
-          </button>
-        </div>
       </div>
     </aside>
     <!-- Mobile sidebar -->
@@ -639,23 +633,11 @@ $data = mysqli_fetch_array($sql);
             } elseif ($act == 'proses') {
               include 'modul/guru/proses.php';
             }
-          } elseif ($page == 'siswa') {
-            if ($act == '') {
-              include 'modul/siswa/data.php';
-            } elseif ($act == 'add') {
-              include 'modul/siswa/add.php';
-            } elseif ($act == 'edit') {
-              include 'modul/siswa/edit.php';
-            } elseif ($act == 'del') {
-              include 'modul/siswa/del.php';
-            } elseif ($act == 'proses') {
-              include 'modul/siswa/proses.php';
-            }
           } elseif ($page == 'rekap') {
             if ($act == '') {
               include 'modul/rekap/rekap_absen.php';
-            } elseif ($act = 'rekap-perbulan') {
-              include 'modul/rekap/rekap_perbulan.php';
+            } elseif ($act == 'cetak') {
+              include 'modul/rekap/laporan-excel.php';
             }
           } elseif ($page == 'jadwal') {
             if ($act == '') {

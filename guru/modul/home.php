@@ -1,65 +1,68 @@
-
-    <div class="container px-6 mx-auto grid">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Dashboard
-        </h2>
-        <!-- CTA -->
-        <div class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" href="https://github.com/estevanmaito/windmill-dashboard">
-            <div class="flex items-center">
-                <span>Selamat datang di Sistem Pengelola Guru <?= $data['nama_lengkap'] ?></span>
-            </div>
+<div class="container px-6 mx-auto grid">
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Dashboard
+    </h2>
+    <!-- CTA -->
+    <div class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" href="https://github.com/estevanmaito/windmill-dashboard">
+        <div class="flex items-center">
+            <span>Selamat datang di Sistem Pengelola Guru <?= $data['nama_lengkap'] ?></span>
         </div>
-        <!-- Cards -->
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            <!-- Card Jumlah guru-->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                        Total Kelas
-                    </p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        <?php echo $jumlahKelas; ?>
-                    </p>
-                </div>
-            </div>
-            <!-- Card jumlah guru aktif -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                        Total Kelas Hari Ini
-                    </p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        <?php echo $jumlahGuruAktif; ?>
-                    </p>
-                </div>
-            </div>
-            <!-- Card jumlah guru tidak aktif-->
-            
-        </div>
-
-        <div class="grid gap-6 mb-8 md:grid-cols-2">
-              
-              <div
-                class="min-w-0 p-4 text-white bg-purple-600 rounded-lg shadow-xs"
-              >
-                <h4 class="mb-4 font-semibold">
-                  Bahasa Indonesia
-                </h4>
-                <ul>
-                    <li>Hari/tanggal</li>
-                    <li>Jam ke </li>
-                    <li>Waktu</li>
-                    <li>Kelas</li>
-                </ul>
-              </div>
     </div>
+
+    <!-- Cards -->
+    <div class="grid gap-6 mb-8 md:grid-cols-2">
+        <?php
+        $tgl = date("l");
+        $data = mysqli_query($con, "SELECT * FROM tb_mengajar
+    INNER JOIN tb_guru ON tb_mengajar.id_guru=tb_guru.id_guru
+    INNER JOIN tb_master_mapel ON tb_mengajar.id_mapel=tb_master_mapel.id_mapel
+    INNER JOIN tb_mkelas ON tb_mengajar.id_mkelas=tb_mkelas.id_mkelas
+    
+    INNER JOIN tb_semester ON tb_mengajar.id_semester=tb_semester.id_semester
+    INNER JOIN tb_thajaran ON tb_mengajar.id_thajaran=tb_thajaran.id_thajaran
+    WHERE tb_mengajar.id_guru='$data[id_guru]' AND tb_thajaran.status=1 AND hari='$tgl' ");
+
+        foreach ($data as $g) { ?>
+
+            <div id="card" class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+               
+                    <h4 class="inline-flex items-center mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                        <svg class="mr-2 w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                        <?= $g['mapel'] ?> | <?= $g['kode_mapel'] ?>
+                    </h4>
+                    <div class="flex items-center">
+                        <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Nama Guru : <?= $g['nama_guru'] ?> | NIP : <?= $g['nip'] ?>
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Hari : <?= $g['hari'] ?> | Jam Ke : <?= $g['jamke'] ?>
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Kelas : <?= $g['nama_kelas'] ?> | Jam Pelajaran : <?= $g['jam_mengajar'] ?>
+                        </p>
+                    </div>
+                    <div>
+                    <a href="?page=absen&act=add&id=<?= $g['id_mengajar'] ?>">
+                        <button class="mt-2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                            Absen
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+                <!-- Tombol Absen -->
+                
+            
+        <?php } ?>
+    </div>
+
+</div>
