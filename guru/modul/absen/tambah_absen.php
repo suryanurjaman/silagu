@@ -66,7 +66,6 @@ foreach($data as $d)
                     <label class="text-sm">
                         <span class="block text-gray-700 dark:text-gray-400">Hari</span>
                         <input class="w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="hari" value="<?= $d['hari']; ?>" readonly />
-                        <input hidden type="text" name="id_guru" value="<?= $d['id_guru']; ?>">
                     </label>
 
                     <label class="text-sm">
@@ -118,7 +117,6 @@ foreach($data as $d)
             $kodpel = $_POST['kodpel'];
             $ta = $_POST['ta'];
             $semester = $_POST['semester'];
-            $id_guru = $_POST['id_guru'];
             $guru = $_POST['guru'];
             $mapel = $_POST['mapel'];
             $kelas = $_POST['kelas'];
@@ -127,13 +125,13 @@ foreach($data as $d)
             $jamke = $_POST['jamke'];
             $status = $_POST['status'];
 
-            $insert = mysqli_query($con, "INSERT INTO tb_absen VALUES (NOT NULL,'$kodpel','$ta','$semester','$guru','$kelas','$hari','$waktu','$jamke','$status','$tanggal','$id_guru' ) ");
+            $insert = mysqli_query($con, "INSERT INTO tb_absen VALUES (NOT NULL,'$kodpel','$ta','$semester','$guru','$kelas','$hari','$waktu','$jamke','$status','$tanggal' ) ");
 
             if ($insert) {
                 echo "
                 <script>
                 alert('Data Berhasil di simpan !');
-                window.location='?page=absen';
+                window.location='?page=rekap';
                 </script>";
             } 
         }
