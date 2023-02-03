@@ -43,7 +43,7 @@
                     $jumlah_data = mysqli_num_rows($jadwal);
                     $total_halaman = ceil($jumlah_data / $batas);
 
-                    $data = mysqli_query($con, "SELECT * FROM tb_absen INNER JOIN tb_guru ON tb_guru.id_guru=tb_absen.id_guru WHERE tb_guru.id_guru='$data[id_guru]' limit $halaman_awal, $batas");
+                    $data = mysqli_query($con, "SELECT * FROM tb_absen WHERE tb_absen.guru_pelajaran='$data[nama_guru]' limit $halaman_awal, $batas");
                     $nomor = $halaman_awal + 1;
                     $nomor_akhir = $halaman_awal + $batas;
                     if ($nomor_akhir > $jumlah_data) {
